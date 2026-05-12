@@ -16,3 +16,14 @@ Original copyright:
 
 License: GPLv2 (same as original)
 
+
+Command to run on back-end:
+
+nohup bash -c '
+find <complete_path_to_whole-slide_images> \
+-iname "*.svs" \
+-print0 | while IFS= read -r -d "" f; do
+echo "Processing: $f"
+python3 anonymize-slide.py "$f"
+done
+' > anonymize.log 2>&1 &
